@@ -1,0 +1,5 @@
+body {
+    min-height: 100vh;
+    background-image: url(./assets/mainBG.jpg);
+    background-size: 100% 100%;
+}
