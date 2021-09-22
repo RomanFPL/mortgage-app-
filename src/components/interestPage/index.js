@@ -1,3 +1,15 @@
+import firebase from "firebase/compat/app";
+import "firebase/compat/database";
+import firebaseConfig from "../../services/dataConfig";
+
+firebase.initializeApp(firebaseConfig);
+
+const database= firebase.database();
+
+database.ref("banks-list").on("value", (snapshot) => console.log(snapshot.val()));
+
+
+
 const InterestPage = () => {
     return (
         <>
