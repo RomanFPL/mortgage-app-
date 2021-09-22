@@ -13,7 +13,7 @@ import firebaseConfig from "./dataConfig";
       }
 
       getBanks = (cb) => {
-        this.database.ref("banksList").once("value", (snapshot) => cb(snapshot.val()));
+        this.database.ref("banksList").on("value", (snapshot) => cb(snapshot.val()));
       }
 
       sendNewBank = (data) => {
@@ -27,6 +27,10 @@ import firebaseConfig from "./dataConfig";
 
        deleteBank = (key) => {
         this.database.ref(`banksList/${key}`).set(null);
+       }
+
+       offDataBase = () => {
+        this.database.ref("banksList").off();
        }
   }
 

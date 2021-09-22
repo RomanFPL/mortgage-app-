@@ -13,6 +13,7 @@ const InterestPage = () => {
     
     useEffect(() => {
         firebase.getBanks(bankList => setState(prevStete => ({...prevStete, bankList})));
+        return () => firebase.offDataBase();
     }) 
 
     return (
@@ -44,8 +45,13 @@ const InterestPage = () => {
                             data-bs-toggle="modal"
                             data-bs-target="#staticBackdrop"
                             onClick={() => {
-                                setState(prevStete => ({...prevStete, dirForm: "EDIT"}));
-                                console.log(key)}
+                                setState(prevStete => ({
+                                    ...prevStete, 
+                                    dirForm: "EDIT",
+                                    curentKey: key
+                                }));
+                                // Object.entries(state.bankList).find(([keyI, obj])=> keyI === key ? obj : null)
+                                }
                             }
                         ></i>
                         <i onClick={
@@ -56,7 +62,19 @@ const InterestPage = () => {
             ))}
         </tbody>
         </table>
-        <button type="button" className="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i className="bi bi-plus-square mr-5">    </i>Add new bank</button>
+        <button 
+            type="button" 
+            className="btn btn-secondary" 
+            data-bs-toggle="modal" 
+            data-bs-target="#staticBackdrop"
+            onClick={() => {
+                setState(prevState => ({
+                    ...prevState,
+                    dirForm: "ADD"
+                }))
+            }}>
+                <i className="bi bi-plus-square mr-5">    
+                </i>Add new bank</button>
         {state.dirForm === "ADD" ? <AddBankForm name="Add bank"/> : <AddBankForm name="Edit bank"/>} 
         </>
     )
