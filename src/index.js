@@ -7,13 +7,15 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 import cn from 'classnames';
 import InterestPage from './components/interestPage';
 import Navbar from './components/navBar';
+import CalcInterest from './components/calcPage';
 
 const App = () => {
   return (
       <>
         <Navbar/>
     <div className="container p-4">
-        <InterestPage/>
+        {/* <InterestPage/> */}
+        <CalcInterest/>
     </div>
     </>
    );
