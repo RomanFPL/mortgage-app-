@@ -8,6 +8,7 @@ import cn from 'classnames';
 import InterestPage from './components/interestPage';
 import Navbar from './components/navBar';
 import CalcInterest from './components/calcPage';
+import HistPage from './components/histPage';
 
 const App = () => {
   return (
@@ -15,7 +16,8 @@ const App = () => {
         <Navbar/>
     <div className="container p-4">
         {/* <InterestPage/> */}
-        <CalcInterest/>
+        {/* <CalcInterest/> */}
+        <HistPage/>
     </div>
     </>
    );
