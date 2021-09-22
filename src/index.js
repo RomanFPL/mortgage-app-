@@ -13,9 +13,12 @@ import Navbar from './components/navBar';
 import CalcInterest from './components/calcPage';
 import HistPage from './components/histPage';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { FireBaseContext } from './services/firebaseContext';
+import Firebase from './services/firebase';
 
 const App = () => {
   return (
+    <FireBaseContext.Provider value={new Firebase()}>
       <Switch>
         <Route>
           <>
@@ -31,6 +34,7 @@ const App = () => {
           </>
         </Route>
       </Switch>
+      </FireBaseContext.Provider>
    );
 }
 

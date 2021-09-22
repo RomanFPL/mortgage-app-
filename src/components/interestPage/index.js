@@ -1,6 +1,8 @@
 import firebase from "firebase/compat/app";
 import "firebase/compat/database";
+import { useContext } from "react";
 import firebaseConfig from "../../services/dataConfig";
+import { FireBaseContext } from "../../services/firebaseContext";
 
 firebase.initializeApp(firebaseConfig);
 
@@ -11,6 +13,8 @@ database.ref("banks-list").on("value", (snapshot) => console.log(snapshot.val())
 
 
 const InterestPage = () => {
+    const firebase = useContext(FireBaseContext);
+    console.log(firebase);
     return (
         <>
         <table className="table table-striped bank-table table-bordered">
