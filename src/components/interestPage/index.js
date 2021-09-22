@@ -35,7 +35,12 @@ const InterestPage = () => {
                 <td>{lt}</td>
                 <td>{mdp}</td>
                 <td>{ml}</td>
-                <td className="d-flex justify-content-center"><div className="wrap-editor"><i className="bi bi-pencil-square"></i><i className="bi bi-trash"></i></div></td>
+                <td className="d-flex justify-content-center"><div className="wrap-editor"><i className="bi bi-pencil-square"></i><i onClick={
+                    () => {
+                        console.log(key)
+                        firebase.deleteBank(key);
+                    }
+            } className="bi bi-trash"></i></div></td>
                 </tr>
             ))}
         </tbody>
