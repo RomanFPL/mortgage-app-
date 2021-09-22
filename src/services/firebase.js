@@ -21,6 +21,10 @@ import firebaseConfig from "./dataConfig";
         this.database.ref(`banksList/${newKey}`).set(data);
       }
 
+      editBank = (key, data) => {
+        this.database.ref(`banksList/${key}`).set(data);
+      }
+
        deleteBank = (key) => {
         this.database.ref(`banksList/${key}`).set(null);
        }
