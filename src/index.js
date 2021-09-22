@@ -7,7 +7,6 @@ import './../path to node modules/../node_modules/bootstrap/dist/js/bootstrap.bu
 import "bootstrap-icons/font/bootstrap-icons.css";
 
 
-import cn from 'classnames';
 import InterestPage from './components/interestPage';
 import Navbar from './components/navBar';
 import CalcInterest from './components/calcPage';

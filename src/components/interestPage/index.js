@@ -1,20 +1,22 @@
-import firebase from "firebase/compat/app";
-import "firebase/compat/database";
-import { useContext } from "react";
-import firebaseConfig from "../../services/dataConfig";
+import { useContext, useEffect, useState } from "react";
+
 import { FireBaseContext } from "../../services/firebaseContext";
-
-firebase.initializeApp(firebaseConfig);
-
-const database= firebase.database();
-
-database.ref("banks-list").on("value", (snapshot) => console.log(snapshot.val()));
-
-
 
 const InterestPage = () => {
     const firebase = useContext(FireBaseContext);
-    console.log(firebase);
+
+    const [bankList, setBankLIst] = useState({});
+
+    
+    console.log(bankList);
+    
+    useEffect(() => {
+        firebase.getBanks(bankList => setBankLIst(bankList));
+    })
+
+    Object.entries(bankList).map(x => console.log(x))
+    
+
     return (
         <>
         <table className="table table-striped bank-table table-bordered">
@@ -30,18 +32,20 @@ const InterestPage = () => {
             </tr>
         </thead>
         <tbody>
-            <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-            <td>@mdo</td>
-            <td>@mdo</td>
-            <td className="d-flex justify-content-center"><div className="wrap-editor"><i className="bi bi-pencil-square"></i><i className="bi bi-trash"></i></div></td>
-            </tr>
+            {Object.entries(bankList).map(([key, {bankName, ir, lt, mdp, ml}], n) => (
+                <tr key={key}>
+                <th scope="row">{++n}</th>
+                <td>{bankName}</td>
+                <td>{ir}</td>
+                <td>{lt}</td>
+                <td>{mdp}</td>
+                <td>{ml}</td>
+                <td className="d-flex justify-content-center"><div className="wrap-editor"><i className="bi bi-pencil-square"></i><i className="bi bi-trash"></i></div></td>
+                </tr>
+            ))}
         </tbody>
         </table>
-        <button type="button" class="btn btn-secondary"><i className="bi bi-plus-square mr-5">    </i>Add new bank</button>
+        <button type="button" className="btn btn-secondary"><i className="bi bi-plus-square mr-5">    </i>Add new bank</button>
         </>
     )
 }

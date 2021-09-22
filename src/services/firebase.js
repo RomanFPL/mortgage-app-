@@ -14,8 +14,8 @@ import firebaseConfig from "./dataConfig";
         this.database= this.fire.database();
       }
 
-      getBanks = () => {
-        this.database.ref("banks-list").on("value", (snapshot) => console.log(snapshot.val()));
+      getBanks = (cb) => {
+        this.database.ref("banksList").once("value", (snapshot) => cb(snapshot.val()));
       }
   }
 
