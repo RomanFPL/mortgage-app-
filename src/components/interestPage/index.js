@@ -26,7 +26,7 @@ const InterestPage = () => {
             <th scope="col">Bank name</th>
             <th scope="col">Interest rate</th>
             <th scope="col">Max loan</th>
-            <th scope="col">Max down payment</th>
+            <th scope="col">Minimum down payment</th>
             <th scope="col">Loan term</th>
             <th className="text-center" scope="col">Manage row</th>
             </tr>
