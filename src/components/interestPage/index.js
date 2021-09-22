@@ -1,5 +1,6 @@
 const InterestPage = () => {
     return (
+        <>
         <table className="table table-striped bank-table table-bordered">
         <thead className="table-dark">
             <tr>
@@ -20,10 +21,12 @@ const InterestPage = () => {
             <td>@mdo</td>
             <td>@mdo</td>
             <td>@mdo</td>
-            <td className="d-flex justify-content-center"><div className="wrap-editor"><i className="bi bi-plus-square"></i><i className="bi bi-pencil-square"></i><i className="bi bi-trash"></i></div></td>
+            <td className="d-flex justify-content-center"><div className="wrap-editor"><i className="bi bi-pencil-square"></i><i className="bi bi-trash"></i></div></td>
             </tr>
         </tbody>
         </table>
+        <button type="button" class="btn btn-secondary"><i className="bi bi-plus-square mr-5">    </i>Add new bank</button>
+        </>
     )
 }
 
