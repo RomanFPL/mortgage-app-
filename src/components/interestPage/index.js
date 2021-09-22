@@ -1,21 +1,16 @@
 import { useContext, useEffect, useState } from "react";
 
 import { FireBaseContext } from "../../services/firebaseContext";
+import AddBankForm from "../addBank/addBank";
 
 const InterestPage = () => {
     const firebase = useContext(FireBaseContext);
 
     const [bankList, setBankLIst] = useState({});
-
-    
-    console.log(bankList);
     
     useEffect(() => {
         firebase.getBanks(bankList => setBankLIst(bankList));
-    })
-
-    Object.entries(bankList).map(x => console.log(x))
-    
+    }) 
 
     return (
         <>
@@ -45,7 +40,8 @@ const InterestPage = () => {
             ))}
         </tbody>
         </table>
-        <button type="button" className="btn btn-secondary"><i className="bi bi-plus-square mr-5">    </i>Add new bank</button>
+        <button type="button" className="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i className="bi bi-plus-square mr-5">    </i>Add new bank</button>
+        <AddBankForm/>
         </>
     )
 }
