@@ -1,4 +1,22 @@
+import { useContext, useEffect, useState } from "react";
+
+import { FireBaseContext } from "../../services/firebaseContext";
+
+const newBank = {
+    "bankName": "New",
+    "ir": "20%",
+    "ml": "400 000",
+    "mdp": "200", 
+    "lt": "3 years"
+}
+
 const AddBankForm = () => {
+    const firebase = useContext(FireBaseContext);
+
+    const handleClickSend = () => {
+        firebase.sendNewBank(newBank);
+    }
+
     return (
         <div className="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div className="modal-dialog">
@@ -29,7 +47,7 @@ const AddBankForm = () => {
                     <label htmlFor="exampleInputEmail1" className="form-label">Loan term</label>
                     <input type="text" className="form-control" id="exampleInputEmail1" aria-describedby="bankToEnter"/>
                 </div>
-                <button type="button" className="btn btn-primary">Add bank info</button>
+                <button onClick={handleClickSend} type="button" className="btn btn-primary">Add bank info</button>
             </form>
             </div>
             </div>

@@ -3,9 +3,7 @@ import "firebase/compat/database";
 
 import firebaseConfig from "./dataConfig";
 
-
-
-  
+ 
   firebase.initializeApp(firebaseConfig);
 
   export default  class Firebase{
@@ -16,6 +14,11 @@ import firebaseConfig from "./dataConfig";
 
       getBanks = (cb) => {
         this.database.ref("banksList").once("value", (snapshot) => cb(snapshot.val()));
+      }
+
+      sendNewBank = (data) => {
+        const newKey = this.database.ref().child('banksList').push().key;
+        this.database.ref(`banksList/${newKey}`).set(data);
       }
   }
 
