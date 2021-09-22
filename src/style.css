@@ -1,5 +1,21 @@
 body {
     min-height: 100vh;
-    background-image: url(./assets/mainBG.jpg);
+    /* background-image: url(./assets/mainBG.jpg); */
     background-size: 100% 100%;
+}
+
+.wrap-editor {
+    width: 50%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.wrap-editor i {
+    cursor: pointer;
+    transition: all .5s ease-in-out;
+}
+
+.wrap-editor i:hover {
+    color: rgb(109, 206, 190);
+    transition: all .5s ease-in-out;
 }
