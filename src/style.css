@@ -19,3 +19,7 @@ body {
     color: rgb(109, 206, 190);
     transition: all .5s ease-in-out;
 }
+
+.calc-btn{
+    margin: 20px auto 0 !important;
+}
