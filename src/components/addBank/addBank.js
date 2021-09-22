@@ -1,59 +1,61 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 
 import { FireBaseContext } from "../../services/firebaseContext";
 import AlertShow from "../alert";
 
-const newBank = {
-    "bankName": "New",
-    "ir": "20%",
-    "ml": "400 000",
-    "mdp": "200", 
-    "lt": "3 years"
+const initState = {formData: {
+    bankName: "",
+    ir: "",
+    ml: "",
+    mdp: "", 
+    lt: ""
+    },
+    wrongVal: false
 }
 
 const AddBankForm = () => {
     const firebase = useContext(FireBaseContext);
 
-    const [formVal, setFormVal] = useState({
-        formData: {
-            bankName: "",
-            ir: "",
-            ml: "",
-            mdp: "", 
-            lt: ""
-        },
-        wrongVal: false
-    });
+    const [state, setState] = useState(initState);
 
 
-    const handleClickSend = () => {
-        console.log(Object.entries(formVal).every(x => x>2));
-        setFormVal(prevState => ({
-            ...prevState,
-            wrongVal: true
-        }))
+    const handleClickSend = (e) => {
+        if(Object.entries(state.formData).every(x => x[1].length>0)){
+            firebase.sendNewBank(state.formData);
+            setState(initState);
+            e.target.parentElement.parentElement.parentElement.children[0].lastChild.click(); 
+        } else {
 
-        setTimeout(() => {
-            setFormVal(prevState => ({
+            setState(prevState => ({
                 ...prevState,
-                wrongVal: false
+                wrongVal: true
             }))
-        },2000)
-        // firebase.sendNewBank(formInput);
+    
+            setTimeout(() => {
+                setState(prevState => ({
+                    ...prevState,
+                    wrongVal: false
+                }))
+            },2000)
+        }
+        
     }
 
     const getInputValue = (e) => {
-        setFormVal(prevState => (
+        setState(prevState => (
             {
                 ...prevState,
-                [e.target.id]: e.target.value
+                formData:{...prevState.formData,
+                    [e.target.id]: e.target.value
+                }
             }
-        ))     
+        ))
+        console.log(state)     
     }
 
     return (
         <>
-        <div className="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div className="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div className="modal-dialog">
             <div className="modal-content">
             <div className="modal-header">
@@ -61,7 +63,7 @@ const AddBankForm = () => {
                 <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div className="modal-body">
-            {formVal.wrongVal && <AlertShow/>}
+            {state.wrongVal && <AlertShow/>}
             <form>
                 <div className="mb-3">
                     <label htmlFor="bankName" className="form-label">Bank name</label>
@@ -71,43 +73,48 @@ const AddBankForm = () => {
                         id="bankName" 
                         aria-describedby="bankToEnter"
                         onChange={getInputValue}
+                        value={state.formData.bankName}
                     />
                 </div>
                 <div className="mb-3">
                     <label htmlFor="ir" className="form-label">Interest rate</label>
                     <input 
-                        type="text" 
+                        type="number" 
                         className="form-control" 
                         id="ir" 
                         aria-describedby="bankToEnter"
-                        onChange={getInputValue}/>
+                        onChange={getInputValue}
+                        value={state.formData.ir}/>
                 </div>
                 <div className="mb-3">
                     <label htmlFor="ml" className="form-label">Max loan</label>
                     <input 
-                        type="text" 
+                        type="number" 
                         className="form-control" 
                         id="ml" 
                         aria-describedby="bankToEnter"
-                        onChange={getInputValue}/>
+                        onChange={getInputValue}
+                        value={state.formData.ml}/>
                 </div>
                 <div className="mb-3">
                     <label htmlFor="mdp" className="form-label">Max down payment</label>
                     <input 
-                        type="text" 
+                        type="number" 
                         className="form-control" 
                         id="mdp" 
                         aria-describedby="bankToEnter"
-                        onChange={getInputValue}/>
+                        onChange={getInputValue}
+                        value={state.formData.mdp}/>
                 </div>
                 <div className="mb-3">
                     <label htmlFor="lt" className="form-label">Loan term</label>
                     <input 
-                        type="text" 
+                        type="number" 
                         className="form-control" 
                         id="lt" 
                         aria-describedby="bankToEnter"
-                        onChange={getInputValue}/>
+                        onChange={getInputValue}
+                        value={state.formData.lt}/>
                 </div>
                 <button onClick={handleClickSend} type="button" className="btn btn-primary">Add bank info</button>
             </form>
