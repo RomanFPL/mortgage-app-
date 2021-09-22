@@ -22,10 +22,10 @@ const App = () => {
             <Navbar/>
             <div className="container p-4">
               <Switch>
-              <Route path="/" component={InterestPage}/>
-              <Route path="/interests" component={InterestPage}/>
-              <Route path="/calculate" component={CalcInterest}/>
-              <Route path="/history" component={HistPage}/>
+              <Route path="/" exact component={InterestPage}/>
+              <Route path="/interests" activeClassName="active" component={InterestPage}/>
+              <Route path="/calculate" activeClassName="active" component={CalcInterest}/>
+              <Route path="/history" activeClassName="active" component={HistPage}/>
               </Switch>
             </div>
           </>

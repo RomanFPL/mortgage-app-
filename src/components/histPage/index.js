@@ -1,15 +1,15 @@
 const HistPage = () => {
     return (
         <>
-        <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">Email address</label>
-            <select class="form-select" aria-label="Default select example">
+        <div className="mb-3">
+            <label htmlFor="exampleInputEmail1" className="form-label">Email address</label>
+            <select className="form-select" aria-label="Default select example">
                 <option selected>Open this select menu</option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
+                <option defaultValue="1">One</option>
+                <option defaultValue="2">Two</option>
+                <option defaultValue="3">Three</option>
             </select>
-            <div id="emailHelp" class="form-text">Select a bank to see history.</div>
+            <div id="emailHelp" className="form-text">Select a bank to see history.</div>
         </div>
         <table className="table table-striped bank-table table-bordered">
         <thead className="table-dark">

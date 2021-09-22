@@ -20,7 +20,7 @@ const InterestPage = () => {
             <td>@mdo</td>
             <td>@mdo</td>
             <td>@mdo</td>
-            <td className="d-flex justify-content-center"><div className="wrap-editor"><i class="bi bi-plus-square"></i><i class="bi bi-pencil-square"></i><i class="bi bi-trash"></i></div></td>
+            <td className="d-flex justify-content-center"><div className="wrap-editor"><i className="bi bi-plus-square"></i><i className="bi bi-pencil-square"></i><i className="bi bi-trash"></i></div></td>
             </tr>
         </tbody>
         </table>
