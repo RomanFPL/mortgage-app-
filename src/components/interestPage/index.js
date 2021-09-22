@@ -16,7 +16,7 @@ const InterestPage = () => {
         firebase.getBanks(bankList => setState(prevStete => ({...prevStete, bankList})));
         return () => firebase.offDataBase();
     }) 
-    
+
     return (
         <>
         <table className="table table-striped bank-table table-bordered">
@@ -79,12 +79,10 @@ const InterestPage = () => {
         <AddBankForm 
         name="Add bank" 
         method={(v) => firebase.sendNewBank(v)}
-        inputs={{bankName: "hindknd"}}
         /> : 
         <AddBankForm 
         name="Edit bank" 
         method={(v) => firebase.sendNewBank(v)}
-        inputs={{bankName: "Cool"}}
         />} 
         </>
     )
