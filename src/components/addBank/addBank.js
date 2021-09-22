@@ -1,6 +1,4 @@
-import { useContext, useState } from "react";
-
-import { FireBaseContext } from "../../services/firebaseContext";
+import { useState } from "react";
 import AlertShow from "../alert";
 
 const initState = {formData: {
@@ -13,15 +11,13 @@ const initState = {formData: {
     wrongVal: false
 }
 
-const AddBankForm = ({name}) => {
-    const firebase = useContext(FireBaseContext);
+const AddBankForm = ({name, method, inputs}) => {
 
-    const [state, setState] = useState(initState);
-
+    const [state, setState] = useState({...initState});
 
     const handleClickSend = (e) => {
         if(Object.entries(state.formData).every(x => x[1].length>0)){
-            firebase.sendNewBank(state.formData);
+            method(state.formData);
             setState(initState);
             e.target.parentElement.parentElement.parentElement.children[0].lastChild.click(); 
         } else {

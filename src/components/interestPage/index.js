@@ -8,14 +8,15 @@ const InterestPage = () => {
 
     const [state, setState] = useState({
         bankList:{},
-        dirForm: "ADD"
+        dirForm: "ADD",
+        clickedElem: null
     });
     
     useEffect(() => {
         firebase.getBanks(bankList => setState(prevStete => ({...prevStete, bankList})));
         return () => firebase.offDataBase();
     }) 
-
+    
     return (
         <>
         <table className="table table-striped bank-table table-bordered">
@@ -36,9 +37,9 @@ const InterestPage = () => {
                 <th scope="row">{++n}</th>
                 <td>{bankName}</td>
                 <td>{ir}</td>
-                <td>{lt}</td>
-                <td>{mdp}</td>
                 <td>{ml}</td>
+                <td>{mdp}</td>
+                <td>{lt}</td>
                 <td className="d-flex justify-content-center">
                     <div className="wrap-editor">
                         <i className="bi bi-pencil-square"
@@ -48,9 +49,8 @@ const InterestPage = () => {
                                 setState(prevStete => ({
                                     ...prevStete, 
                                     dirForm: "EDIT",
-                                    curentKey: key
+                                    clickedElem: Object.entries(state.bankList).find(([k,elem]) => k === key ? ([key, elem]) : null)
                                 }));
-                                // Object.entries(state.bankList).find(([keyI, obj])=> keyI === key ? obj : null)
                                 }
                             }
                         ></i>
@@ -75,7 +75,17 @@ const InterestPage = () => {
             }}>
                 <i className="bi bi-plus-square mr-5">    
                 </i>Add new bank</button>
-        {state.dirForm === "ADD" ? <AddBankForm name="Add bank"/> : <AddBankForm name="Edit bank"/>} 
+        {state.dirForm === "ADD" ? 
+        <AddBankForm 
+        name="Add bank" 
+        method={(v) => firebase.sendNewBank(v)}
+        inputs={{bankName: "hindknd"}}
+        /> : 
+        <AddBankForm 
+        name="Edit bank" 
+        method={(v) => firebase.sendNewBank(v)}
+        inputs={{bankName: "Cool"}}
+        />} 
         </>
     )
 }

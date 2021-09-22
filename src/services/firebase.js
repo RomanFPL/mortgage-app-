@@ -13,7 +13,7 @@ import firebaseConfig from "./dataConfig";
       }
 
       getBanks = (cb) => {
-        this.database.ref("banksList").on("value", (snapshot) => cb(snapshot.val()));
+        this.database.ref("banksList").once("value", (snapshot) => cb(snapshot.val()));
       }
 
       sendNewBank = (data) => {
