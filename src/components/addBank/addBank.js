@@ -117,6 +117,7 @@ const AddBankForm = () => {
                         value={state.formData.lt}/>
                 </div>
                 <button onClick={handleClickSend} type="button" className="btn btn-primary">Add bank info</button>
+                <button onClick={() => {setState(initState)}} type="button" className="btn btn-warning ml-5">Clear form</button>
             </form>
             </div>
             </div>

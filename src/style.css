@@ -23,3 +23,10 @@ body {
 .calc-btn{
     margin: 20px auto 0 !important;
 }
+
+.mr-5 {
+    margin-right: 5px !important;
+}
+.ml-5 {
+    margin-left: 5px !important;
+}
