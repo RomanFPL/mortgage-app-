@@ -14,7 +14,8 @@ const CalcInterest = () => {
         valDownPay: "",
         valAmound: "",
         bankName: "",
-        mortgage: 0
+        mortgage: 0,
+        invalidMort: false
     });
 
     const handleSelected = (e) => {
@@ -41,7 +42,7 @@ const CalcInterest = () => {
     const calcMonthPayment = () => {
         const {valAmound, ir, mp} = state,
                 m = Math.floor((valAmound*(ir/1200)*(1+ir/1200)**mp)/((1+ir/1200)**mp-1));
-        setState(prev => ({...prev, mortgage: m}))
+        setState(prev => ({...prev, mortgage: m, invalidMort: m>state.valDownPay}))
         firebase.sendNewHist({
             bankName: state.bankName,
             dp: state.valDownPay,
@@ -59,9 +60,19 @@ const CalcInterest = () => {
         return () => {
             firebase.offDataBaseBanks();
         }
-    }) 
+    })
+    
+    const addSpaces = (number) => {
+        return number.toString().split("").reverse().join("").replace(/[^\dA-Z]/g, '').replace(/(.{3})/g, '$1 ').split("").reverse().join("").trim()
+    }
+    
     return (
         <div className="container">
+            {state.invalidMort && (
+                <div class="alert alert-danger" role="alert">
+                        Your monthly payment is lower then minimum down payment. This loan is invalid.
+                </div>
+            )}
         <div className="row">
             <div className="col-sm-5 col-md-6 border border-info rounded bg-light p-4">
             <form>
@@ -75,8 +86,8 @@ const CalcInterest = () => {
                     <input onChange={handleDownPay} type="number" min={state.mdp} max={state.ml} value={state.valDownPay} className="form-control" id="enter-dp" aria-describedby="emailHelp"/>
                 </div>
                 <div className="mb-3">
+                <label htmlFor="select-bank" className="form-label">Select bank</label>
                 <select onClick={handleSelected} id="select-bank" className="form-select" aria-label="Default select example">
-                    <option>Select bank</option>
                     {Object.entries(state.bankList).map(([key, obj]) => (<option key={key} data-mp={obj.lt} data-mdp={obj.mdp} data-ir={obj.ir} data-ml={obj.ml}>{obj.bankName}</option>))}
 
                 </select>
@@ -88,11 +99,11 @@ const CalcInterest = () => {
                 <div className="res-panel border border-info rounded p-4 bg-secondary m-3">
                     <h2 className="text-center primary">Result</h2>
                     <span className="display-2 text-center d-block">{state.mortgage}$</span>
-                    {/* <p>Enter all data to get result... || Your monthly payment.</p> */}
+                    <p>{state.mortgage ? "Your monthly payment." : "Enter all data to get result..."}</p>
                 </div>
             </div>
         </div>
-        <div className="container add-overvlow">
+        <div className="add-overvlow">
         <div className="max-content">
         <h2 className="text-center p-3 text-light">Last calculation</h2>
         <table className="table table-striped bank-table table-bordered table-secondary">
@@ -112,12 +123,12 @@ const CalcInterest = () => {
             <tr>
             <th scope="row">#</th>
             <td>{state.ir}%</td>
-            <td>{state.ml} $</td>
-            <td>{state.mdp} $</td>
+            <td>{addSpaces(state.ml)}$</td>
+            <td>{addSpaces(state.mdp)}$</td>
             <td>{state.mp} m</td>
-            <td>{state.valAmound} $</td>
-            <td>{state.valDownPay} $</td>
-            <td className="text-center">{state.mortgage} $</td>
+            <td>{addSpaces(state.valAmound)}$</td>
+            <td>{addSpaces(state.valDownPay)}$</td>
+            <td className="text-center">{addSpaces(state.mortgage)}$</td>
             </tr>
         </tbody>
         </table>

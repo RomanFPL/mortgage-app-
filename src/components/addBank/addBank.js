@@ -108,7 +108,7 @@ const AddBankForm = ({name, method}) => {
                         value={state.formData.ml}/>
                 </div>
                 <div className="mb-3">
-                    <label htmlFor="mdp" className="form-label">Max down payment</label>
+                    <label htmlFor="mdp" className="form-label">Min down payment</label>
                     <input 
                         type="number" 
                         className="form-control" 

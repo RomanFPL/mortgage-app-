@@ -25,20 +25,25 @@ const HistPage = () => {
         setState(prevState => ({...prevState, curentBank: e.target.value}))
         filterBank();
     }
+
+    const addSpaces = (number) => {
+        return number.toString().split("").reverse().join("").replace(/[^\dA-Z]/g, '').replace(/(.{3})/g, '$1 ').split("").reverse().join("").trim()
+    }
     
     return (
         <>
         <div className="mb-3">
-            <label htmlFor="bank-calculations" className="form-label">Bank calculations</label>
+            <label htmlFor="bank-calculations" className="form-label"><h2 className="text-light">Bank calculations</h2></label>
             <select onClick={handleCurentBank} className="form-select" aria-label="Default select example">
                 <option>Select bank to filter</option>
                 {[...new Set(Object.entries(state.historyList).reduce((x,[,obj])=> x.concat(obj.bankName),[]))].map((name, i) => (
                     <option key={i}>{name}</option>
                 ))}
             </select>
-            <div className="form-text">Select a bank to see history.</div>
+            <div className="form-text text-light">Select a bank to see history.</div>
         </div>
-        <table className="table table-striped bank-table table-bordered table-secondary">
+        <div className="add-overvlow">
+        <table className="table table-striped bank-table table-bordered table-secondary max-content">
         <thead className="table-dark">
             <tr>
             <th scope="col">#</th>
@@ -56,16 +61,17 @@ const HistPage = () => {
             <tr key={key}>
             <th scope="row">{++n}</th>
             <td>{record.ir}%</td>
-            <td>{record.lt}$</td>
-            <td>{record.mdp}$</td>
+            <td>{addSpaces(record.lt)}$</td>
+            <td>{addSpaces(record.mdp)}$</td>
             <td>{record.ml}m</td>
-            <td>{record.il}$</td>
-            <td>{record.dp}$</td>
-            <td className="text-center">{record.mp}</td>
+            <td>{addSpaces(record.il)}$</td>
+            <td>{addSpaces(record.dp)}$</td>
+            <td className="text-center">{addSpaces(record.mp)}$</td>
             </tr>   
         ))}
         </tbody>
         </table>
+        </div>
         </>
     )
 }
