@@ -15,7 +15,8 @@ const CalcInterest = () => {
         valAmound: "",
         bankName: "",
         mortgage: 0,
-        invalidMort: false
+        invalidMort: false,
+        isLoaded: false
     });
 
     const handleSelected = (e) => {
@@ -42,7 +43,11 @@ const CalcInterest = () => {
     const calcMonthPayment = () => {
         const {valAmound, ir, mp} = state,
                 m = Math.floor((valAmound*(ir/1200)*(1+ir/1200)**mp)/((1+ir/1200)**mp-1));
-        setState(prev => ({...prev, mortgage: m, invalidMort: m>state.valDownPay}))
+        setState(prev => ({...prev, mortgage: m, invalidMort: !(m>state.valDownPay && +state.valAmound<=state.ml)}))
+        console.log(m>state.valDownPay);
+        console.log(+state.valAmound<=state.ml);
+        console.log(state.invalidMort);
+        !state.invalidMort &&
         firebase.sendNewHist({
             bankName: state.bankName,
             dp: state.valDownPay,
@@ -69,8 +74,8 @@ const CalcInterest = () => {
     return (
         <div className="container">
             {state.invalidMort && (
-                <div class="alert alert-danger" role="alert">
-                        Your monthly payment is lower then minimum down payment. This loan is invalid.
+                <div className="alert alert-danger" role="alert">
+                        Your monthly payment is lower than minimum down payment or initial loan is higher than maximum loan for this bank. This loan is invalid.
                 </div>
             )}
         <div className="row">
@@ -98,7 +103,7 @@ const CalcInterest = () => {
             <div className="col-sm-5 offset-sm-2 col-md-6 offset-md-0 d-flex justify-content-center align-items-center text-light">
                 <div className="res-panel border border-info rounded p-4 bg-secondary m-3">
                     <h2 className="text-center primary">Result</h2>
-                    <span className="display-2 text-center d-block">{state.mortgage}$</span>
+                    <span className="display-2 text-center d-block">{addSpaces(state.mortgage)}$</span>
                     <p>{state.mortgage ? "Your monthly payment." : "Enter all data to get result..."}</p>
                 </div>
             </div>

@@ -55,7 +55,7 @@ const AddBankForm = ({name, method}) => {
               <div className="modal-dialog">
               <div className="modal-content">
                 <div className="modal-header">
-                    <h5 className="modal-title" id="staticBackdropLabel">This functionality is curently in develop, to edit row you need to add new and delete previous.</h5>
+                    <h5 className="modal-title" id="staticBackdropLabel">This function is curently in development. To edit information you need to add a new bank and delete the previous one.</h5>
                     <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
               </div>
