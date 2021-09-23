@@ -25,6 +25,11 @@ import firebaseConfig from "./dataConfig";
         this.database.ref(`banksList/${newKey}`).set(data);
       }
 
+      sendNewHist = (data) => {
+        const newKey = this.database.ref().child('history').push().key;
+        this.database.ref(`history/${newKey}`).set(data);
+      }
+
       editBank = (key, data) => {
         this.database.ref(`banksList/${key}`).set(data);
       }
