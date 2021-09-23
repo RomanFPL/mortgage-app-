@@ -10,8 +10,6 @@ const HistPage = () => {
         bankRecords: {}
     })
 
-    // Object.entries(state.bankRecords).map(([key, record], n) => console.log(record[1]));
-
     useEffect(() => {
         firebase.getHistory(history => setState(prevState => ({...prevState, historyList: history})));
         return () => firebase.offDataBaseHist();
@@ -27,9 +25,6 @@ const HistPage = () => {
         setState(prevState => ({...prevState, curentBank: e.target.value}))
         filterBank();
     }
-
-    
-        // [...new Set(Object.entries(state.historyList).reduce((x,[,obj])=> x.concat(obj.bankName),[]))]
     
     return (
         <>
