@@ -1,18 +1,19 @@
 import { useState } from "react";
 import AlertShow from "../alert";
 
-const initState = {formData: {
-    bankName: "",
-    ir: "",
-    ml: "",
-    mdp: "", 
-    lt: ""
-    },
-    wrongVal: false
-}
 
-const AddBankForm = ({name, method, inputs}) => {
+const AddBankForm = ({name, method}) => {
 
+    const initState = {formData: {
+        bankName: "",
+        ir: "",
+        ml: "",
+        mdp: "", 
+        lt: ""
+        },
+        wrongVal: false
+    }
+    
     const [state, setState] = useState({...initState});
 
     const handleClickSend = (e) => {
@@ -46,7 +47,21 @@ const AddBankForm = ({name, method, inputs}) => {
                 }
             }
         ))
-        console.log(state)     
+    }
+
+    if(name !== "Add bank"){
+        return (
+          <div className="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+              <div className="modal-dialog">
+              <div className="modal-content">
+                <div className="modal-header">
+                    <h5 className="modal-title" id="staticBackdropLabel">This functionality is curently in develop, to edit row you need to add new and delete previous.</h5>
+                    <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+              </div>
+              </div>
+          </div>  
+        );
     }
 
     return (

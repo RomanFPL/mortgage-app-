@@ -20,9 +20,6 @@ const Navbar = () => {
             <NavLink to="/history" className="nav-link" activeClassName="active" >History</NavLink>
             </li>
         </ul>
-        <span className="navbar-text">
-            A place where you can calculate your mortgage
-        </span>
         </div>
         </div>
         </nav>

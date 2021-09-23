@@ -1,7 +1,8 @@
 body {
     min-height: 100vh;
-    /* background-image: url(./assets/mainBG.jpg); */
+    background-image: url(./assets/mainBG.jpg);
     background-size: 100% 100%;
+    background-repeat: no-repeat;
 }
 
 .wrap-editor {
@@ -21,7 +22,7 @@ body {
 }
 
 .calc-btn{
-    margin: 20px auto 0 !important;
+    margin: 20px auto 20px !important;
 }
 
 .mr-5 {
@@ -29,4 +30,22 @@ body {
 }
 .ml-5 {
     margin-left: 5px !important;
+}
+
+.overflow-block{
+    overflow: hidden !important;
+}
+
+.add-overvlow{
+    overflow-x: auto !important;
+}
+
+.max-content{
+    min-width: max-content !important;
+}
+
+#root{
+    background: #00000044 !important;
+    min-height: 100vh;
+    height: 100%;
 }

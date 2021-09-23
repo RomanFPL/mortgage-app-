@@ -23,7 +23,7 @@ const App = () => {
         <Route>
           <>
             <Navbar/>
-            <div className="container p-4">
+            <div className="container p-4 overflow-block">
               <Switch>
               <Route path="/" exact component={InterestPage}/>
               <Route path="/interests" activeClassName="active" component={InterestPage}/>

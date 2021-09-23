@@ -38,7 +38,7 @@ const HistPage = () => {
             </select>
             <div className="form-text">Select a bank to see history.</div>
         </div>
-        <table className="table table-striped bank-table table-bordered">
+        <table className="table table-striped bank-table table-bordered table-secondary">
         <thead className="table-dark">
             <tr>
             <th scope="col">#</th>

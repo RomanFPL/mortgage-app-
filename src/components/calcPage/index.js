@@ -63,8 +63,9 @@ const CalcInterest = () => {
     return (
         <div className="container">
         <div className="row">
-            <div className="col-sm-5 col-md-6">
+            <div className="col-sm-5 col-md-6 border border-info rounded bg-light p-4">
             <form>
+                <h2>Data to calculate</h2>
                 <div className="mb-3">
                     <label htmlFor="enter-init" className="form-label">Initial loan</label>
                     <input type="number" onChange={handleInitial} min={state.mdp} max={state.ml} value={state.valAmound} className="form-control" id="enter-init" aria-describedby="emailHelp"/>
@@ -80,20 +81,22 @@ const CalcInterest = () => {
 
                 </select>
                 </div>
-                <button type="button" onClick={calcMonthPayment} className="btn btn-primary d-block calc-btn">Submit</button>
+                <button type="button" onClick={calcMonthPayment} className="btn btn-secondary d-block">Calculate</button>
                 </form>
             </div>
-            <div className="col-sm-5 offset-sm-2 col-md-6 offset-md-0 d-flex justify-content-center align-items-center">
-                <div className="res-panel">
-                    <h2 className="text-center">Result</h2>
+            <div className="col-sm-5 offset-sm-2 col-md-6 offset-md-0 d-flex justify-content-center align-items-center text-light">
+                <div className="res-panel border border-info rounded p-4 bg-secondary m-3">
+                    <h2 className="text-center primary">Result</h2>
                     <span className="display-2 text-center d-block">{state.mortgage}$</span>
                     {/* <p>Enter all data to get result... || Your monthly payment.</p> */}
                 </div>
             </div>
         </div>
-        <h2 className="text-center">Last calculation</h2>
-        <table className="table table-striped bank-table table-bordered mt-4">
-        <thead className="table-dark">
+        <div className="container add-overvlow">
+        <div className="max-content">
+        <h2 className="text-center p-3 text-light">Last calculation</h2>
+        <table className="table table-striped bank-table table-bordered table-secondary">
+        <thead className="table-dark ">
             <tr>
             <th scope="col">#</th>
             <th scope="col">Interest rate</th>
@@ -118,6 +121,8 @@ const CalcInterest = () => {
             </tr>
         </tbody>
         </table>
+        </div>
+        </div>
         </div>
     )
 }

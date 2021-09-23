@@ -23,7 +23,8 @@ const InterestPage = () => {
 
     return (
         <>
-        <table className="table table-striped bank-table table-bordered">
+        <div className="container add-overvlow">
+        <table className="table table-striped bank-table table-bordered max-content table-secondary">
         <thead className="table-dark">
             <tr>
             <th scope="col">#</th>
@@ -87,7 +88,9 @@ const InterestPage = () => {
         <AddBankForm 
         name="Edit bank" 
         method={(v) => firebase.sendNewBank(v)}
+        elem={state.clickedElem}
         />} 
+        </div>
         </>
     )
 }
