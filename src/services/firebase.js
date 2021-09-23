@@ -16,6 +16,10 @@ import firebaseConfig from "./dataConfig";
         this.database.ref("banksList").once("value", (snapshot) => cb(snapshot.val()));
       }
 
+      getHistory = (cb) => {
+        this.database.ref("history").once("value", (snapshot) => cb(snapshot.val()));
+      }
+
       sendNewBank = (data) => {
         const newKey = this.database.ref().child('banksList').push().key;
         this.database.ref(`banksList/${newKey}`).set(data);
@@ -29,8 +33,11 @@ import firebaseConfig from "./dataConfig";
         this.database.ref(`banksList/${key}`).set(null);
        }
 
-       offDataBase = () => {
+       offDataBaseBanks = () => {
         this.database.ref("banksList").off();
+       }
+       offDataBaseHist = () => {
+        this.database.ref("history").off();
        }
   }
 

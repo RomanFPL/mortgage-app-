@@ -14,7 +14,7 @@ const InterestPage = () => {
     
     useEffect(() => {
         firebase.getBanks(bankList => setState(prevStete => ({...prevStete, bankList})));
-        return () => firebase.offDataBase();
+        return () => firebase.offDataBaseBanks();
     }) 
 
     const addSpaces = (number) => {

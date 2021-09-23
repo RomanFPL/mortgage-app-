@@ -6,6 +6,7 @@ const CalcInterest = () => {
 
     const [state, setState] = useState({
         bankList: {},
+        historyList: {},
         mp: null,
         ir: null,
         mdp: 0,
@@ -36,18 +37,21 @@ const CalcInterest = () => {
     }
 
     const calcMonthPayment = () => {
-        const {valAmound, ir, ml} = state,
-                m = (valAmound*(ir/1200)*(1+ir/1200)^ml)/((1+ir/1200)^ml-1);
+        const {valAmound, ir, mp} = state,
+                m = Math.floor((valAmound*(ir/1200)*(1+ir/1200)**mp)/((1+ir/1200)**mp-1));
         setState(prev => ({...prev, mortgage: m}))
     }
 
     useEffect(() => {
+        // firebase.getHistory(history => setState(prevState => ({...prevState, historyList: history})));
         firebase.getBanks(bankList => setState(prevState => ({...prevState, bankList: bankList}) ));
-        return () => firebase.offDataBase();
+        return () => {
+            firebase.offDataBaseBanks();
+        }
     }) 
 
 
-    console.log(state);
+    console.log(state.historyList);
     return (
         <div className="container">
         <div className="row">
@@ -75,11 +79,11 @@ const CalcInterest = () => {
                 <div className="res-panel">
                     <h2 className="text-center">Result</h2>
                     <span className="display-2 text-center d-block">{state.mortgage}$</span>
-                    <p>Enter all data to get result... || Your monthly payment.</p>
+                    {/* <p>Enter all data to get result... || Your monthly payment.</p> */}
                 </div>
             </div>
         </div>
-        <h2 className="text-center">Last calculations</h2>
+        <h2 className="text-center">Last calculation</h2>
         <table className="table table-striped bank-table table-bordered mt-4">
         <thead className="table-dark">
             <tr>
@@ -95,14 +99,14 @@ const CalcInterest = () => {
         </thead>
         <tbody>
             <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-            <td>@mdo</td>
-            <td>@mdo</td>
-            <td>@mdo</td>
-            <td>@mdo</td>
+            <th scope="row">#</th>
+            <td>{state.ir}%</td>
+            <td>{state.ml} $</td>
+            <td>{state.mdp} $</td>
+            <td>{state.mp} m</td>
+            <td>{state.valAmound} $</td>
+            <td>{state.valDownPay} $</td>
+            <td className="text-center">{state.mortgage} $</td>
             </tr>
         </tbody>
         </table>
