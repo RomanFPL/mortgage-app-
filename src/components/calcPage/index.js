@@ -13,6 +13,7 @@ const CalcInterest = () => {
         ml: 0,
         valDownPay: "",
         valAmound: "",
+        bankName: "",
         mortgage: 0
     });
 
@@ -23,6 +24,7 @@ const CalcInterest = () => {
                 ir: tempEl.dataset.ir, 
                 mdp: tempEl.dataset.mdp,
                 ml:  tempEl.dataset.ml,
+                bankName: e.target.value,
                 valDownPay: tempEl.dataset.mdp,
                 valAmound: tempEl.dataset.mdp
             }))
@@ -40,6 +42,16 @@ const CalcInterest = () => {
         const {valAmound, ir, mp} = state,
                 m = Math.floor((valAmound*(ir/1200)*(1+ir/1200)**mp)/((1+ir/1200)**mp-1));
         setState(prev => ({...prev, mortgage: m}))
+        firebase.sendNewHist({
+            bankName: state.bankName,
+            dp: state.valDownPay,
+            il: state.valAmound,
+            ir: state.ir,
+            lt: state.ml,
+            mdp: state.mdp,
+            ml: state.mp,
+            mp: state.mortgage
+        })
     }
 
     useEffect(() => {
