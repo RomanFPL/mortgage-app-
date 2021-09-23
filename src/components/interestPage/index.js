@@ -17,6 +17,10 @@ const InterestPage = () => {
         return () => firebase.offDataBase();
     }) 
 
+    const addSpaces = (number) => {
+        return number.toString().split("").reverse().join("").replace(/[^\dA-Z]/g, '').replace(/(.{3})/g, '$1 ').split("").reverse().join("").trim()
+    }
+
     return (
         <>
         <table className="table table-striped bank-table table-bordered">
@@ -36,10 +40,10 @@ const InterestPage = () => {
                 <tr key={key}>
                 <th scope="row">{++n}</th>
                 <td>{bankName}</td>
-                <td>{ir}</td>
-                <td>{ml}</td>
-                <td>{mdp}</td>
-                <td>{lt}</td>
+                <td>{ir}%</td>
+                <td>{addSpaces(ml)}$</td>
+                <td>{addSpaces(mdp)}$</td>
+                <td>{lt} m</td>
                 <td className="d-flex justify-content-center">
                     <div className="wrap-editor">
                         <i className="bi bi-pencil-square"

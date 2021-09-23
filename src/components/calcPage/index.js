@@ -11,7 +11,8 @@ const CalcInterest = () => {
         mdp: 0,
         ml: 0,
         valDownPay: "",
-        valAmound: ""
+        valAmound: "",
+        mortgage: 0
     });
 
     const handleSelected = (e) => {
@@ -27,19 +28,24 @@ const CalcInterest = () => {
     }
 
     const handleDownPay = (e) => {
-        console.log(e)
         setState(prev => ({...prev, valDownPay: e.target.value}))
     }
 
     const handleInitial = (e) => {
-        console.log(e)
         setState(prev => ({...prev, valAmound: e.target.value}))
+    }
+
+    const calcMonthPayment = () => {
+        const {valAmound, ir, ml} = state,
+                m = (valAmound*(ir/1200)*(1+ir/1200)^ml)/((1+ir/1200)^ml-1);
+        setState(prev => ({...prev, mortgage: m}))
     }
 
     useEffect(() => {
         firebase.getBanks(bankList => setState(prevState => ({...prevState, bankList: bankList}) ));
         return () => firebase.offDataBase();
     }) 
+
 
     console.log(state);
     return (
@@ -62,13 +68,13 @@ const CalcInterest = () => {
 
                 </select>
                 </div>
-                <button type="button" className="btn btn-primary d-block calc-btn">Submit</button>
+                <button type="button" onClick={calcMonthPayment} className="btn btn-primary d-block calc-btn">Submit</button>
                 </form>
             </div>
             <div className="col-sm-5 offset-sm-2 col-md-6 offset-md-0 d-flex justify-content-center align-items-center">
                 <div className="res-panel">
                     <h2 className="text-center">Result</h2>
-                    <span className="display-2 text-center d-block">52$</span>
+                    <span className="display-2 text-center d-block">{state.mortgage}$</span>
                     <p>Enter all data to get result... || Your monthly payment.</p>
                 </div>
             </div>
