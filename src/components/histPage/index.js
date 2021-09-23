@@ -1,15 +1,47 @@
+import { useContext, useEffect, useState } from "react";
+import { FireBaseContext } from "../../services/firebaseContext";
+
 const HistPage = () => {
+    const firebase = useContext(FireBaseContext);
+
+    const [state, setState] = useState({
+        historyList: {},
+        curentBank: "None",
+        bankRecords: {}
+    })
+
+    // Object.entries(state.bankRecords).map(([key, record], n) => console.log(record[1]));
+
+    useEffect(() => {
+        firebase.getHistory(history => setState(prevState => ({...prevState, historyList: history})));
+        return () => firebase.offDataBaseHist();
+    })
+
+    const filterBank = () => {
+        setState(prevState => ({...prevState, bankRecords: {
+            ...Object.entries(prevState.historyList).filter(([key, record]) => record.bankName ===prevState.curentBank)
+        }}))
+    }
+
+    const handleCurentBank = (e) => {
+        setState(prevState => ({...prevState, curentBank: e.target.value}))
+        filterBank();
+    }
+
+    
+        // [...new Set(Object.entries(state.historyList).reduce((x,[,obj])=> x.concat(obj.bankName),[]))]
+    
     return (
         <>
         <div className="mb-3">
-            <label htmlFor="exampleInputEmail1" className="form-label">Email address</label>
-            <select className="form-select" aria-label="Default select example">
-                <option selected>Open this select menu</option>
-                <option defaultValue="1">One</option>
-                <option defaultValue="2">Two</option>
-                <option defaultValue="3">Three</option>
+            <label htmlFor="bank-calculations" className="form-label">Bank calculations</label>
+            <select onClick={handleCurentBank} className="form-select" aria-label="Default select example">
+                <option>Select bank to filter</option>
+                {[...new Set(Object.entries(state.historyList).reduce((x,[,obj])=> x.concat(obj.bankName),[]))].map((name, i) => (
+                    <option key={i}>{name}</option>
+                ))}
             </select>
-            <div id="emailHelp" className="form-text">Select a bank to see history.</div>
+            <div className="form-text">Select a bank to see history.</div>
         </div>
         <table className="table table-striped bank-table table-bordered">
         <thead className="table-dark">
@@ -25,16 +57,18 @@ const HistPage = () => {
             </tr>
         </thead>
         <tbody>
-            <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-            <td>@mdo</td>
-            <td>@mdo</td>
-            <td>@mdo</td>
-            <td>@mdo</td>
-            </tr>
+            {Object.entries(state.bankRecords).map(([key, [,record]], n) => (
+            <tr key={key}>
+            <th scope="row">{++n}</th>
+            <td>{record.ir}%</td>
+            <td>{record.lt}$</td>
+            <td>{record.mdp}$</td>
+            <td>{record.ml}m</td>
+            <td>{record.il}$</td>
+            <td>{record.dp}$</td>
+            <td className="text-center">{record.mp}</td>
+            </tr>   
+        ))}
         </tbody>
         </table>
         </>

@@ -50,20 +50,16 @@ const CalcInterest = () => {
             lt: state.ml,
             mdp: state.mdp,
             ml: state.mp,
-            mp: state.mortgage
+            mp: m
         })
     }
 
     useEffect(() => {
-        // firebase.getHistory(history => setState(prevState => ({...prevState, historyList: history})));
         firebase.getBanks(bankList => setState(prevState => ({...prevState, bankList: bankList}) ));
         return () => {
             firebase.offDataBaseBanks();
         }
     }) 
-
-
-    console.log(state.historyList);
     return (
         <div className="container">
         <div className="row">
