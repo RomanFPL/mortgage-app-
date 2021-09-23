@@ -79,6 +79,33 @@ const CalcInterest = () => {
                 </div>
             </div>
         </div>
+        <h2 className="text-center">Last calculations</h2>
+        <table className="table table-striped bank-table table-bordered mt-4">
+        <thead className="table-dark">
+            <tr>
+            <th scope="col">#</th>
+            <th scope="col">Interest rate</th>
+            <th scope="col">Max loan</th>
+            <th scope="col">MDP</th>
+            <th scope="col">Loan term</th>
+            <th scope="col">Initial loan</th>
+            <th scope="col">Down payment</th>
+            <th className="text-center" scope="col">Monthly payment</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+            <th scope="row">1</th>
+            <td>Mark</td>
+            <td>Otto</td>
+            <td>@mdo</td>
+            <td>@mdo</td>
+            <td>@mdo</td>
+            <td>@mdo</td>
+            <td>@mdo</td>
+            </tr>
+        </tbody>
+        </table>
         </div>
     )
 }
